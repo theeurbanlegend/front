@@ -10,7 +10,7 @@ const PulseTablePage = () => {
   useEffect(() => {
     // Fetch pulses from your backend
     const fetchData = async () => {
-        const response = await axios.get('http://localhost:3001/api/pulseData');
+        const response = await axios.get('https://tally-monitor-engine.onrender.com/api/pulseData');
         const sortedPulses = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setPulses(sortedPulses);
     };

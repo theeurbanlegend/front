@@ -10,7 +10,7 @@ const PulseChartPage = () => {
   useEffect(() => {
     // Fetch pulses from your backend
     const fetchData = async () => {
-    const response = await axios.get('http://localhost:3001/api/pulseData');
+    const response = await axios.get('https://tally-monitor-engine.onrender.com/api/pulseData');
       
       setPulses(response.data);
       console.log(response.data)

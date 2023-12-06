@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 
 import axios from 'axios';
 
-const socket = io.connect('http://localhost:8081');
+const socket = io.connect('https://notifs-engine.onrender.com');
 
 const Home = () => {
     const navigate=useNavigate()
@@ -51,7 +51,7 @@ const Home = () => {
   // Form
   const addNewPulse = async (data) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/pulseData/add', {
+      const response = await axios.post('https://tally-monitor-engine.onrender.com/api/pulseData/add', {
         verified: data.verifiedUsersCount,
         allUsers: data.totalUsersCount,
         exeTime: data.exeTime,
