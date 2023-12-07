@@ -12,7 +12,32 @@ const Home = () => {
   const [nextPulseTime, setNextPulseTime] = useState(null);
   const [countdown, setCountdown] = useState(600); // Initial countdown in seconds (10 minutes)
   const [updateTimes, setUpdateTimes] = useState([]);
+  // Function to initialize values from the most recent entry in the database
+  const initializeValuesFromDatabase = async () => {
+    try {
+      // Fetch the most recent entry from the database
+      const response = await axios.get('https://tally-monitor-engine.onrender.com/api/pulseData/recent');
 
+      // Extract relevant data from the response
+      const { verified, allUsers, exeTime,createdAt } = response.data;
+
+      // Update state with the values
+      setUserStats({ verifiedUsersCount: verified, totalUsersCount: allUsers, exeTime });
+      
+      // Calculate the next pulse time (assuming it comes every 3 seconds)
+      // Calculate the next pulse time
+      const nextPulse = new Date(createdAt);
+      nextPulse.setMinutes(nextPulse.getMinutes() + 10); // 10 minutes later
+      setNextPulseTime(nextPulse);
+
+      // Calculate the countdown timer
+      const countdownTimer = Math.max(0, Math.floor((nextPulse - Date.now()) / 1000));
+      setCountdown(countdownTimer);
+      // Update the history of update tim
+    } catch (error) {
+      console.error('Error initializing values from the database:', error);
+    }
+  }
   useEffect(() => {
     const handleUserVerificationStats =async (data) => {
       setUserStats(data);
@@ -71,6 +96,7 @@ const Home = () => {
   
   useEffect(() => {
     registerServiceWorker();
+    initializeValuesFromDatabase()
   }, []); // Empty dependency array ensures that this effect runs only once on mount
 
   
