@@ -90,12 +90,12 @@ const Home = () => {
         console.error(`Registration failed with ${error}`);
       }
     }
-  };
+    }
+  
   
   // …
   
   useEffect(() => {
-    registerServiceWorker();
     initializeValuesFromDatabase()
   }, []); // Empty dependency array ensures that this effect runs only once on mount
 
@@ -127,7 +127,7 @@ const Home = () => {
       <div className="logo-container">
         {/* Add your logo here */}
         {/* You can use an image tag or another component for your logo */}
-        <img src="your-logo.png" alt="Logo" />
+        <img src="tally.jpeg" alt="Logo" />
       </div>
       <div className="status-container">
         <div className="circle pulse green"></div>
