@@ -7,7 +7,32 @@ const Home = ({userStats ,nextPulseTime, countdown}) => {
   const navigate=useNavigate()
   const [updateTimes, setUpdateTimes] = useState([]);
   // Function to initialize values from the most recent entry in the database
-  
+  const [formattedCountdown, setFormattedCountdown] = useState('');
+
+  useEffect(() => {
+    let timer;
+
+    const updateCountdown = () => {
+      const minutes = Math.floor(countdown / 60);
+      const seconds = countdown % 60;
+      const formattedCountdown = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      setFormattedCountdown(formattedCountdown);
+    };
+
+    if (countdown > 0) {
+      updateCountdown(); // Initial update
+
+      // Update the countdown every second
+      timer = setInterval(() => {
+        updateCountdown();
+      }, 1000);
+    }
+
+    return () => {
+      // Cleanup function to clear the interval when the component unmounts
+      clearInterval(timer);
+    };
+  }, [countdown]);
   
 
   // Calculate the percentage of verified users
@@ -20,11 +45,7 @@ const Home = ({userStats ,nextPulseTime, countdown}) => {
     ? `${nextPulseTime.toLocaleTimeString()} (in 10 minutes)`
     : 'Calculating...';
 
-  // Format the countdown timer
-  const minutes = Math.floor(countdown / 60);
-  const seconds = countdown % 60;
-  const formattedCountdown = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-
+  
   return (
     <div className="app-container">
       <div className="logo-container">
