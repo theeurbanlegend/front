@@ -28,7 +28,7 @@ self.addEventListener('install', (event) => {
     const url = new URL(event.request.url);
   
     // Handle WebSocket requests
-    if (url.origin === 'http://localhost:8080' && url.pathname.includes('/socket.io/')) {
+    if (url.origin === 'https://notifs-engine.onrender.com' && url.pathname.includes('/socket.io/')) {
       event.respondWith(handleSocketConnection(event.request));
     } else {
       event.respondWith(
