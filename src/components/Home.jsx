@@ -69,7 +69,10 @@ const Home = () => {
   
   // …
   
-  registerServiceWorker();
+  useEffect(() => {
+    registerServiceWorker();
+  }, []); // Empty dependency array ensures that this effect runs only once on mount
+
   
   // Form
   const addNewPulse = async (data) => {
