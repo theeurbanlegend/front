@@ -46,6 +46,7 @@ const MainComponent = () => {
     return () => {
       socketInstance.off('userVerificationStats', handleUserVerificationStats);
       socketInstance.disconnect(); // Disconnect the socket when the component unmounts
+      clearInterval(countdownInterval);
     };
   };
   const registerServiceWorker = async () => {
@@ -77,7 +78,11 @@ const MainComponent = () => {
     setCountdown(600);
     await addNewPulse(data);
   };
-
+    // Update countdown every second
+    const countdownInterval = setInterval(() => {
+      setCountdown((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    
   const addNewPulse = async (data) => {
     try {
       const response = await axios.post('https://tally-monitor-engine.onrender.com/api/pulseData/add', {
