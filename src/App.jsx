@@ -9,7 +9,7 @@ const App = ({userStats ,nextPulseTime, countdown}) => {
   return (
     <Router>
       <Routes>
-        <Route exact path="/"  element={<Home userStats={userStats} nextPulseTime={nextPulseTime} countdown={countdown} />} />
+        <Route exact path="/"  element={<Home />} />
         <Route exact path="/pulses/table" element={<PulseTablePage/>} />
         <Route exact path="/pulses/charts" element={<PulseChartPage/>} />
       </Routes>
