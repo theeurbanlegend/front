@@ -14,8 +14,9 @@ const Home = () => {
   const [updateTimes, setUpdateTimes] = useState([]);
 
   useEffect(() => {
-    const handleUserVerificationStats =async (data) => {
-      setUserStats(data);
+    const handleUserVerificationStats =async ({  verified,  allUsers, exeTime }) => {
+      setUserStats({ verifiedUsersCount: verified, totalUsersCount: allUsers, exeTime });
+      
 
       // Calculate the next pulse time (assuming it comes every 3 seconds)
       const now = new Date();
