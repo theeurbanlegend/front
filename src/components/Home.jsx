@@ -99,7 +99,7 @@ const Home = () => {
         <p>Verified Users: {userStats.verifiedUsersCount}</p>
         <p>Total Users: {userStats.totalUsersCount}</p>
         <div className="progress-bar" style={{ width: '100%', backgroundColor: '#ddd' }}>
-          <div style={{ width: `${verifiedUsersPercentage}%`, backgroundColor: '#4CAF50', height: '24px' }}></div>
+          <div style={{ width: `${verifiedUsersPercentage}%`, backgroundColor: '#4CAF50', height: '24px' }}>{verifiedUsersPercentage}%</div>
         </div>
         <p>Last  update Time: {userStats.exeTime} seconds</p>
         <p>Next pulse from server at {formattedNextPulseTime}</p>
