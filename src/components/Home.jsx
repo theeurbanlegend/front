@@ -6,11 +6,12 @@ import axios from 'axios';
 
 const socket = io.connect('https://tally-monitor-engine.onrender.com');
 
+
 const Home = () => {
   const navigate=useNavigate()
   const [userStats, setUserStats] = useState({ verifiedUsersCount: 0, totalUsersCount: 0, exeTime: 0 });
   const [nextPulseTime, setNextPulseTime] = useState(null);
-  const [countdown, setCountdown] = useState(600); // Initial countdown in seconds (10 minutes)
+  const [countdown, setCountdown] = useState(1200); // Initial countdown in seconds (20 minutes)
   const [updateTimes, setUpdateTimes] = useState([]);
 
   useEffect(() => {
@@ -20,14 +21,14 @@ const Home = () => {
 
       // Calculate the next pulse time (assuming it comes every 3 seconds)
       const now = new Date();
-      const nextPulse = new Date(now.getTime() + 10 * 60 * 1000); // 10 minutes later
+      const nextPulse = new Date(now.getTime() + 20 * 60 * 1000); // 10 minutes later
       setNextPulseTime(nextPulse);
 
       // Update the history of update times
 
 
       // Reset countdown to 10 minutes when new data is received
-      setCountdown(600);
+      setCountdown(1200);
     };
     // Listen for the 'userVerificationStats' event
     socket.on('userVerificationStats', handleUserVerificationStats);
@@ -58,7 +59,7 @@ const Home = () => {
       // Calculate the next pulse time (assuming it comes every 3 seconds)
       // Calculate the next pulse time
       const nextPulse = new Date(createdAt);
-      nextPulse.setMinutes(nextPulse.getMinutes() + 10); // 10 minutes later
+      nextPulse.setMinutes(nextPulse.getMinutes() + 20); // 10 minutes later
       setNextPulseTime(nextPulse);
 
       // Calculate the countdown timer
@@ -76,7 +77,7 @@ const Home = () => {
   // Calculate the percentage of verified users
   const verifiedUsersPercentage = Math.round((userStats.verifiedUsersCount / userStats.totalUsersCount) * 100);
   const formattedNextPulseTime = nextPulseTime
-    ? `${nextPulseTime.toLocaleTimeString()} (in 10 minutes)`
+    ? `${nextPulseTime.toLocaleTimeString()} (in 20 minutes)`
     : 'Calculating...';
 
   // Format the countdown timer
@@ -99,7 +100,7 @@ const Home = () => {
         <p>Verified Users: {userStats.verifiedUsersCount}</p>
         <p>Total Users: {userStats.totalUsersCount}</p>
         <div className="progress-bar" style={{ width: '100%', backgroundColor: '#ddd' }}>
-          <div style={{ width: `${verifiedUsersPercentage}%`, backgroundColor: '#4CAF50', height: '24px' }}></div>
+          <div style={{ width: `${verifiedUsersPercentage}%`, backgroundColor: '#4CAF50', height: '24px', textAlign:'right' }}> {verifiedUsersPercentage}%</div>
         </div>
         <p>Last  update Time: {userStats.exeTime} seconds</p>
         <p>Next pulse from server at {formattedNextPulseTime}</p>
